@@ -177,7 +177,7 @@ const WEDDING_CONFIG = {
     },
     {
       title: 'Haldi',
-      date: 'DECEMBER 9, 2026',
+      date: 'DECEMBER 8, 2026',
       time: '09:00 AM ONWARDS',
       venue: 'Sharma Residence, Noida',
 
@@ -204,7 +204,7 @@ const WEDDING_CONFIG = {
       venue: 'Sharma Residence, Noida',
 
       desc:
-        'Intricate bridal henna, Rajasthani folk music, and vibrant celebrations with high tea.',
+        "Intricate Groom's henna, folk music, and vibrant celebrations with high tea.",
 
       icon: (
         <svg
@@ -221,7 +221,7 @@ const WEDDING_CONFIG = {
     {
       title: 'Shubh Pheras (Wedding Ceremony)',
       date: 'DECEMBER 10, 2026',
-      time: '04:00 PM ONWARDS',
+      time: '04:30 AM ONWARDS',
       venue: 'Aggarwal Dharmshala, Chhatarpur, New Delhi',
 
       desc:
@@ -263,21 +263,21 @@ const WEDDING_CONFIG = {
 
 timeline: [
     {
-      time: '03:30 PM',
-      title: 'Baraat Aagman & Procession',
+      time: '04:30 PM',
+      title: 'Baraat Prasthan',
       desc:
         'The Groom’s grand procession with traditional dhol, dancing, and royal entry to meet the Bride’s family.'
     },
 
     {
-      time: '04:30 PM',
+      time: '10:30 PM',
       title: 'Varmala Ceremony',
       desc:
         'Exchange of floral garlands as the Groom greets the Bride at the lakefront stage.'
     },
 
     {
-      time: '05:15 PM',
+      time: '04:15 AM',
       title: 'Pheras & Wedding Rituals',
       desc:
         'Sacred seven vows around the holy fire as the Groom accepts the Bride into his family.'
