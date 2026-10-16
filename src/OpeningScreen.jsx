@@ -374,7 +374,7 @@ useEffect(() => {
           isolation: isolate;
           overflow: hidden;
 
-          margin-top: clamp(28px, 5vh, 48px);
+          margin-top: clamp(28px, 3vh, 48px);
           min-width: 250px;
           padding: 17px 32px;
 
