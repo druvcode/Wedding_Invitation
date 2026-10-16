@@ -8,10 +8,10 @@ const WEDDING_CONFIG = {
     dateISO: '2026-12-10T16:00:00',
 
     groomPhoto:
-      'https://instagram.fdel32-1.fna.fbcdn.net/v/t51.82787-15/658085983_18430393987184618_2240961019998312271_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ig_cache_key=Mzg2MzMyNDI2NjY0NTc4NTMyNw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTQ0MC5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=e4kf0M__XlEQ7kNvwGigqMs&_nc_oc=AdpTEW2s54YX7iqTT1CFm41nyDZAzDxyipHtFq9cKt1sMik8QSOsF6IoLfSUeOR734o&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fdel32-1.fna&_nc_gid=xaGWT15-svcQxO5LBElYuw&_nc_ss=7a22e&oh=00_AQJh2hreT8U5UvY-CR-ltq3CUF_0OJUem08a1_o0U7ZCFw&oe=6AADD79E',
+      '/images/groom.jpeg',
 
     bridePhoto:
-      'https://instagram.fdel32-1.fna.fbcdn.net/v/t51.82787-15/804646371_18106151198607188_4977080354097991405_n.webp?_nc_cat=105&_nc_map=urlgen_bucketless&ig_cache_key=Mzk4MzYwMjU2MjI0MjUxNTYwMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=Bx9oP5qIyzUQ7kNvwED26HK&_nc_oc=AdqpUmbcUEW8DzxiKDyAgVVl2lJ5Rbe8iCkUW1URoBm23IUBYw_yH2Iz_5HqKJEnU9w&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fdel32-1.fna&_nc_gid=zjCGE4DJtyqCgJkvG7vXZA&_nc_ss=7a22e&oh=00_AQL8nVTLonu4givarHDotyQ9fQiqmHGkb3i0o43bt7FtQQ&oe=6AADCC41',
+      '/images/bride.jpeg',
 
     groomTitle:
       'Son of Mrs. Geeta Devi & Mr. Yogender Sharma',
@@ -200,7 +200,7 @@ const WEDDING_CONFIG = {
     {
       title: 'Mehendi Ki Raat',
       date: 'DECEMBER 9, 2026',
-      time: '04:00 PM ONWARDS',
+      time: '08:00 PM ONWARDS',
       venue: 'Sharma Residence, Noida',
 
       desc:
@@ -425,7 +425,7 @@ function AudioControl({ audioRef, playing, setPlaying }) {
       </svg>
 
       <span className="audio-label">
-        {playing ? 'Music On' : 'Music Off'}
+        {playing ? 'Off Music' : 'On Music'}
       </span>
     </div>
   )

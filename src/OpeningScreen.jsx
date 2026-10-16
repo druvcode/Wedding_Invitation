@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 export default function OpeningScreen({
@@ -10,7 +11,6 @@ export default function OpeningScreen({
   const [closing, setClosing] = useState(false);
 
   useEffect(() => {
-    // Hide browser scrollbar while the cover is open.
     const html = document.documentElement;
     const body = document.body;
 
@@ -26,12 +26,21 @@ export default function OpeningScreen({
     };
   }, []);
 
+
+useEffect(() => {
+  const timer = window.setTimeout(() => {
+    openInvitation();
+  }, 8000);
+
+  return () => window.clearTimeout(timer);
+}, []);
+
+
   const openInvitation = () => {
     if (closing) return;
 
     setClosing(true);
 
-    // The cover animation is 720ms.
     window.setTimeout(() => {
       onOpen?.();
     }, 720);
@@ -77,10 +86,6 @@ export default function OpeningScreen({
           color: #FFFDF9;
           text-align: center;
 
-          /*
-            The whole cover moves upward.
-            This is deliberately NOT an opacity-only transition.
-          */
           transform: translate3d(0, 0, 0);
           transition:
             transform 720ms cubic-bezier(0.76, 0, 0.24, 1),
@@ -95,33 +100,28 @@ export default function OpeningScreen({
           pointer-events: none;
         }
 
-        /* Fine royal texture */
         .wedding-opening::before {
           content: "";
           position: absolute;
           inset: 0;
           z-index: -2;
           pointer-events: none;
-
           opacity: 0.14;
 
-          background-image:
-            radial-gradient(
-              rgba(212, 175, 55, 0.8) 0.55px,
-              transparent 0.55px
-            );
+          background-image: radial-gradient(
+            rgba(212, 175, 55, 0.8) 0.55px,
+            transparent 0.55px
+          );
 
           background-size: 25px 25px;
         }
 
-        /* Inner gold frame */
         .wedding-opening::after {
           content: "";
           position: absolute;
           inset: 2.5%;
           z-index: -1;
           pointer-events: none;
-
           border: 1px solid rgba(212, 175, 55, 0.28);
         }
 
@@ -131,23 +131,20 @@ export default function OpeningScreen({
           height: min(75vw, 720px);
           border-radius: 50%;
 
-          background:
-            radial-gradient(
-              circle,
-              rgba(212, 175, 55, 0.09) 0%,
-              rgba(212, 175, 55, 0.025) 40%,
-              transparent 70%
-            );
+          background: radial-gradient(
+            circle,
+            rgba(212, 175, 55, 0.09) 0%,
+            rgba(212, 175, 55, 0.025) 40%,
+            transparent 70%
+          );
 
           pointer-events: none;
         }
 
-        /* Decorative corner lines */
         .opening-corner {
           position: absolute;
           width: 115px;
           height: 115px;
-
           border-color: rgba(212, 175, 55, 0.38);
           border-style: solid;
           pointer-events: none;
@@ -180,7 +177,6 @@ export default function OpeningScreen({
         .opening-content {
           position: relative;
           z-index: 2;
-
           width: min(92%, 680px);
 
           display: flex;
@@ -191,49 +187,37 @@ export default function OpeningScreen({
           padding: 35px 20px 75px;
         }
 
-        /*
-          IMPORTANT:
-          The SVG has ONLY the rotation animation.
-          Its opacity/scale entrance is handled by its parent shell,
-          so both animations never fight over transform.
-        */
+        /* Rotating mandala */
+
         .opening-mandala-shell {
           width: clamp(105px, 18vw, 145px);
           height: clamp(105px, 18vw, 145px);
-
           margin-bottom: clamp(26px, 5vh, 48px);
 
           opacity: 0;
           transform: scale(0.72);
 
-          animation:
-            openingMandalaAppear 900ms ease 50ms forwards;
+          animation: openingMandalaAppear 900ms ease 50ms forwards;
         }
 
         .opening-mandala {
           display: block;
           width: 100%;
           height: 100%;
+          transform-origin: center;
 
-          transform-origin: 50% 50%;
+          animation: openingMandalaSpin 24s linear infinite;
 
-          animation:
-            openingMandalaSpin 24s linear infinite;
-
-          filter:
-            drop-shadow(0 0 10px rgba(212, 175, 55, 0.13));
+          filter: drop-shadow(
+            0 0 10px rgba(212, 175, 55, 0.13)
+          );
 
           will-change: transform;
         }
 
         @keyframes openingMandalaSpin {
-          from {
-            transform: rotate(0deg);
-          }
-
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
 
         @keyframes openingMandalaAppear {
@@ -248,6 +232,8 @@ export default function OpeningScreen({
           }
         }
 
+        /* Text entrance animations */
+
         .opening-kicker,
         .opening-greeting,
         .opening-names,
@@ -258,22 +244,20 @@ export default function OpeningScreen({
         .opening-footer {
           animation-name: openingTextUp;
           animation-duration: 900ms;
-          animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+          animation-timing-function:
+            cubic-bezier(0.22, 1, 0.36, 1);
           animation-fill-mode: both;
         }
 
         .opening-kicker {
           margin: 0 0 12px;
-
           color: rgba(243, 229, 171, 0.72);
 
           font-family: "Montserrat", sans-serif;
           font-size: clamp(0.62rem, 1.5vw, 0.78rem);
           font-weight: 500;
-
           letter-spacing: 0.34em;
           line-height: 1.5;
-
           text-transform: uppercase;
 
           animation-delay: 180ms;
@@ -281,13 +265,11 @@ export default function OpeningScreen({
 
         .opening-greeting {
           margin: 0 0 clamp(24px, 4vh, 40px);
-
           color: var(--gold);
 
           font-family: "Cormorant Garamond", serif;
           font-size: clamp(1.15rem, 3vw, 1.55rem);
           font-weight: 500;
-
           letter-spacing: 0.08em;
 
           animation-delay: 300ms;
@@ -295,7 +277,6 @@ export default function OpeningScreen({
 
         .opening-names {
           margin: 0;
-
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -305,19 +286,16 @@ export default function OpeningScreen({
           font-family: "Cormorant Garamond", serif;
           font-size: clamp(3.2rem, 9vw, 5.1rem);
           font-weight: 500;
-
           letter-spacing: 0.025em;
           line-height: 0.88;
 
-          text-shadow:
-            0 4px 22px rgba(0, 0, 0, 0.18);
+          text-shadow: 0 4px 22px rgba(0, 0, 0, 0.18);
 
           animation-delay: 420ms;
         }
 
         .opening-ampersand {
           margin: clamp(13px, 2.2vh, 22px) 0;
-
           color: var(--gold-light);
 
           font-family: "Cormorant Garamond", serif;
@@ -329,9 +307,7 @@ export default function OpeningScreen({
         .opening-divider {
           display: flex;
           align-items: center;
-
           width: min(90%, 330px);
-
           margin: clamp(24px, 4vh, 38px) 0 18px;
 
           animation-delay: 560ms;
@@ -340,48 +316,39 @@ export default function OpeningScreen({
         .opening-divider::before,
         .opening-divider::after {
           content: "";
-
           flex: 1;
           height: 1px;
 
-          background:
-            linear-gradient(
-              90deg,
-              transparent,
-              rgba(212, 175, 55, 0.58)
-            );
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(212, 175, 55, 0.58)
+          );
         }
 
         .opening-divider::after {
-          background:
-            linear-gradient(
-              90deg,
-              rgba(212, 175, 55, 0.58),
-              transparent
-            );
+          background: linear-gradient(
+            90deg,
+            rgba(212, 175, 55, 0.58),
+            transparent
+          );
         }
 
         .opening-divider-dot {
           width: 6px;
           height: 6px;
-
           margin: 0 12px;
-
           border: 1px solid var(--gold);
-
           background: var(--crimson);
-
           transform: rotate(45deg);
         }
 
         .opening-date {
           margin: 0;
-
           color: var(--gold-light);
 
           font-family: "Cormorant Garamond", serif;
           font-size: clamp(1rem, 2.8vw, 1.3rem);
-
           letter-spacing: 0.24em;
 
           animation-delay: 620ms;
@@ -389,96 +356,147 @@ export default function OpeningScreen({
 
         .opening-location {
           margin: 8px 0 0;
-
           color: rgba(255, 253, 249, 0.68);
 
           font-family: "Montserrat", sans-serif;
           font-size: clamp(0.58rem, 1.5vw, 0.72rem);
-
           letter-spacing: 0.25em;
           text-transform: uppercase;
 
           animation-delay: 680ms;
         }
 
+        /* Prominent gold invitation button */
+
         .opening-button {
           appearance: none;
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
 
           margin-top: clamp(28px, 5vh, 48px);
+          min-width: 250px;
+          padding: 17px 32px;
 
-          min-width: 230px;
+          border: 1px solid #F8E7A1;
+          border-radius: 4px;
 
-          padding: 15px 28px;
+          background: linear-gradient(
+            135deg,
+            #F3D77B 0%,
+            #D4AF37 45%,
+            #B88A25 100%
+          );
 
-          border: 1px solid rgba(212, 175, 55, 0.88);
-
-          outline: none;
-
-          background:
-            linear-gradient(
-              135deg,
-              rgba(74, 14, 23, 0.72),
-              rgba(107, 17, 29, 0.68)
-            );
-
-          color: var(--gold-light);
+          color: #3B0910;
 
           font-family: "Montserrat", sans-serif;
-          font-size: clamp(0.68rem, 1.8vw, 0.78rem);
-          font-weight: 600;
-
-          letter-spacing: 0.24em;
+          font-size: clamp(0.72rem, 1.8vw, 0.84rem);
+          font-weight: 700;
+          letter-spacing: 0.20em;
           text-transform: uppercase;
 
           cursor: pointer;
 
           box-shadow:
-            0 12px 30px rgba(0, 0, 0, 0.18),
-            inset 0 0 0 1px rgba(243, 229, 171, 0.06);
+            0 0 0 1px rgba(243, 229, 171, 0.18),
+            0 0 18px rgba(212, 175, 55, 0.35),
+            0 8px 28px rgba(0, 0, 0, 0.30);
+
+          animation:
+            openingTextUp 900ms
+              cubic-bezier(0.22, 1, 0.36, 1) 760ms both,
+            buttonHeartbeat 2.4s ease-in-out 0.3s infinite;
 
           transition:
-            background 300ms ease,
-            color 300ms ease,
-            transform 300ms ease,
-            box-shadow 300ms ease;
+            background 250ms ease,
+            color 250ms ease,
+            box-shadow 250ms ease,
+            border-color 250ms ease;
 
-          animation-delay: 760ms;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .opening-button::after {
+          content: " ↗";
+          display: inline-block;
+          margin-left: 5px;
+          font-size: 1.05em;
+          transition: transform 250ms ease;
         }
 
         .opening-button:hover {
-          color: #ffffff;
+          background: linear-gradient(
+            135deg,
+            #FFF0B0 0%,
+            #F3D77B 50%,
+            #D4AF37 100%
+          );
 
-          background:
-            rgba(212, 175, 55, 0.12);
-
-          transform: translateY(-3px);
+          color: #32070D;
+          border-color: #FFF4C4;
 
           box-shadow:
-            0 16px 35px rgba(0, 0, 0, 0.25),
-            0 0 25px rgba(212, 175, 55, 0.1);
+            0 0 0 2px rgba(243, 229, 171, 0.14),
+            0 0 32px rgba(212, 175, 55, 0.55),
+            0 12px 32px rgba(0, 0, 0, 0.28);
+        }
+
+        .opening-button:hover::after {
+          transform: translate(3px, -2px);
         }
 
         .opening-button:active {
-          transform: translateY(0);
+          transform: scale(0.97);
         }
 
         .opening-button:focus-visible {
-          box-shadow:
-            0 0 0 3px rgba(243, 229, 171, 0.22),
-            0 0 0 5px rgba(212, 175, 55, 0.6);
+          outline: 2px solid #FFF4C4;
+          outline-offset: 5px;
         }
 
         .opening-button:disabled {
           cursor: default;
+          animation: none;
+        }
+
+        /* Two gentle beats, followed by a pause */
+
+        @keyframes buttonHeartbeat {
+          0%, 70%, 100% {
+            transform: scale(1);
+            box-shadow:
+              0 0 0 1px rgba(243, 229, 171, 0.18),
+              0 0 18px rgba(212, 175, 55, 0.35),
+              0 8px 28px rgba(0, 0, 0, 0.30);
+          }
+
+          76% {
+            transform: scale(1.035);
+            box-shadow:
+              0 0 0 2px rgba(243, 229, 171, 0.18),
+              0 0 28px rgba(212, 175, 55, 0.52),
+              0 10px 30px rgba(0, 0, 0, 0.30);
+          }
+
+          82% {
+            transform: scale(1);
+          }
+
+          88% {
+            transform: scale(1.025);
+          }
+
+          94% {
+            transform: scale(1);
+          }
         }
 
         .opening-footer {
           position: absolute;
-          left: 50%;
+          left: 0%;
           bottom: clamp(18px, 3vh, 30px);
-
           width: 100%;
-
           padding: 0 24px;
 
           transform: translateX(-50%);
@@ -487,7 +505,6 @@ export default function OpeningScreen({
 
           font-family: "Cormorant Garamond", serif;
           font-size: 0.82rem;
-
           letter-spacing: 0.14em;
 
           animation-delay: 900ms;
@@ -504,6 +521,8 @@ export default function OpeningScreen({
             transform: translateY(0);
           }
         }
+
+        /* Tablet and mobile */
 
         @media (max-width: 768px) {
           .opening-corner {
@@ -559,8 +578,9 @@ export default function OpeningScreen({
           }
 
           .opening-button {
-            min-width: 205px;
-            padding: 14px 22px;
+            min-width: 220px;
+            padding: 15px 22px;
+            font-size: 0.72rem;
           }
 
           .opening-footer {
@@ -570,6 +590,11 @@ export default function OpeningScreen({
         }
 
         @media (max-height: 700px) {
+          .opening-content {
+            padding-top: 20px;
+            padding-bottom: 55px;
+          }
+
           .opening-mandala-shell {
             width: 92px;
             height: 92px;
@@ -621,22 +646,43 @@ export default function OpeningScreen({
             transform: none;
           }
 
+          .opening-button {
+            transition: none;
+          }
+
+          .opening-button::after {
+            transition: none;
+          }
+
           .wedding-opening {
             transition: transform 300ms ease, opacity 100ms ease;
           }
         }
       `}</style>
 
-      <div className={`wedding-opening ${closing ? "is-closing" : ""}`}>
+      <div
+        className={`wedding-opening ${closing ? "is-closing" : ""}`}
+      >
         <div className="opening-glow" aria-hidden="true" />
 
-        <div className="opening-corner opening-corner--tl" aria-hidden="true" />
-        <div className="opening-corner opening-corner--tr" aria-hidden="true" />
-        <div className="opening-corner opening-corner--bl" aria-hidden="true" />
-        <div className="opening-corner opening-corner--br" aria-hidden="true" />
+        <div
+          className="opening-corner opening-corner--tl"
+          aria-hidden="true"
+        />
+        <div
+          className="opening-corner opening-corner--tr"
+          aria-hidden="true"
+        />
+        <div
+          className="opening-corner opening-corner--bl"
+          aria-hidden="true"
+        />
+        <div
+          className="opening-corner opening-corner--br"
+          aria-hidden="true"
+        />
 
         <main className="opening-content">
-          {/* The supplied mandala SVG, with continuous rotation */}
           <div className="opening-mandala-shell">
             <svg
               className="opening-mandala"
@@ -653,6 +699,7 @@ export default function OpeningScreen({
                   stroke="#D4A853"
                   strokeWidth="0.5"
                 />
+
                 <circle
                   cx="100"
                   cy="100"
@@ -661,7 +708,11 @@ export default function OpeningScreen({
                   strokeWidth="0.3"
                 />
 
-                <g stroke="#C5975B" strokeWidth="0.6" fill="none">
+                <g
+                  stroke="#C5975B"
+                  strokeWidth="0.6"
+                  fill="none"
+                >
                   {Array.from({ length: 12 }, (_, i) => (
                     <ellipse
                       key={`outer-petal-${i}`}
@@ -674,7 +725,11 @@ export default function OpeningScreen({
                   ))}
                 </g>
 
-                <g stroke="#E8D5B0" strokeWidth="0.5" fill="none">
+                <g
+                  stroke="#E8D5B0"
+                  strokeWidth="0.5"
+                  fill="none"
+                >
                   {Array.from({ length: 12 }, (_, i) => (
                     <ellipse
                       key={`inner-petal-${i}`}
@@ -737,17 +792,16 @@ export default function OpeningScreen({
             <span>{bride}</span>
           </h1>
 
-          <div className="opening-divider" aria-hidden="true">
+          <div
+            className="opening-divider"
+            aria-hidden="true"
+          >
             <span className="opening-divider-dot" />
           </div>
 
-          <p className="opening-date">
-            {date}
-          </p>
+          <p className="opening-date">{date}</p>
 
-          <p className="opening-location">
-            {location}
-          </p>
+          <p className="opening-location">{location}</p>
 
           <button
             type="button"
