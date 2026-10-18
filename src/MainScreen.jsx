@@ -156,7 +156,7 @@ const WEDDING_CONFIG = {
 
   events: [
     {
-      title: 'Tikal Ceremony',
+      title: 'Tilak Ceremony',
       date: 'DECEMBER 6, 2026',
       time: '09:00 PM ONWARDS',
       venue: 'Sharma Residence, Noida',
